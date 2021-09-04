@@ -9,7 +9,8 @@ Do you want to compile it?
     If you want to test the software, run npm start
     To compile, run npm run compiler
 
-# How to Use
+# How to Use (Click in the image to see a video)
+
 [![INTRODUCTIONVIDEO](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4uJPHaEgVEHAybGQLnQQA7Tn6mFHmsTqLcw&usqp=CAU)](https://youtu.be/chcWxh4Co_c)
  
   Open any example.
