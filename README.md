@@ -1,4 +1,4 @@
-Otto Blockly for Linux
+# Otto Blockly for Linux
 
 This is a Linux version for Otto Blockly developed by Antonio Gómez and Mª Dolores Nogueras.It's a project still developing. As far as we know, it works in Ubuntu 20
 Do you want to compile it?
@@ -9,8 +9,8 @@ Do you want to compile it?
     If you want to test the software, run npm start
     To compile, run npm run compiler
 
-How to Use
-[![INTRODUCTIONVIDEO](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4uJPHaEgVEHAybGQLnQQA7Tn6mFHmsTqLcw&usqp=CAU)](https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=chcWxh4Co_c)
+# How to Use
+[![INTRODUCTIONVIDEO](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4uJPHaEgVEHAybGQLnQQA7Tn6mFHmsTqLcw&usqp=CAU)](https://youtu.be/chcWxh4Co_c)
  
   Open any example.
     Connect your Otto robot.
@@ -21,7 +21,7 @@ How to Use
     Join the Otto Builder community and share them!
     Subscribe to our YouTube channel for tutorials
 
-Attribution
+# Attribution
 
 Thanks to all these tools created by great people. that without them, would have not been possible to make this project:
 
