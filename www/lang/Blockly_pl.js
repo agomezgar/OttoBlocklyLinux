@@ -9,6 +9,7 @@ Blockly.Msg.ARD_TYPE_TEXT = "tekst";
 Blockly.Msg.ARD_TYPE_BOOL = "liczba dwójkowa";
 Blockly.Msg.ARD_TYPE_SHORT = "bajt";
 Blockly.Msg.ARD_TYPE_NUMBER = "liczba całkowita";
+Blockly.Msg.ARD_TYPE_UNUMBER = "unsigned integer";
 Blockly.Msg.ARD_TYPE_LONG = "liczba całkowita długa";
 Blockly.Msg.ARD_TYPE_DECIMAL = "liczba zmiennoprzecinkowa";
 Blockly.Msg.ARD_TYPE_ARRAY = "tablica";
@@ -47,6 +48,7 @@ Blockly.Msg.CONTROLS_FLOW_STATEMENTS_WARNING = "Uwaga: Ten blok należy użyć w
 Blockly.Msg.CONTROLS_FOREACH_TITLE = "Dla każdego elementu  %1 z listy %2.";
 Blockly.Msg.CONTROLS_FOREACH_TOOLTIP = "Dla każdego elementu z listy, przypisz wartość elementu do zmiennej %1, a następnie wykonaj instrukcje.";
 Blockly.Msg.CONTROLS_FOR_TITLE = "Dla %1 z zakresu od %2 do %3 wkrokach co %4.";
+Blockly.Msg.CONTROLS_FOR_TITLE2 = "for %1 ranging from %2 to %3 (>=)in steps of - %4";
 Blockly.Msg.CONTROLS_FOR_TOOLTIP = "Ustaw zmienną  %1 na wartości od liczby początkowej do liczby końcowej, w podanych krokach, i wykonaj podaną instrukcję.";
 Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP = "Dodaj warunek.";
 Blockly.Msg.CONTROLS_IF_ELSE_TOOLTIP = "Dodaj warunek końcowy.";

@@ -1,9 +1,13 @@
 {
  "name": "OttoBlockly",
- "version": "1.0.0",
- "description": "Blockly and Arduino for Otto DIY robot adapted to Linux by Antonio Gómez García",
- "author": "Otto DIY and community",
- "license": "CC0-1.0",
+ "version": "1.4.2",
+ "description": "Blockly and Arduino coding APP for Otto DIY robot",
+ "author": {
+  "name": "Camilo Parra con la colaboración de Antonio Gómez",
+  "email": "antonio@aprendizdetecnologo.com"
+ },
+ "email": "antonio@aprendizdetecnologo.com",
+ "license": "GNU General Public License v2.0",
  "main": "electronApp.js",
  "keywords": [
   "blockly",
@@ -34,25 +38,17 @@
   "postinstall": "electron-builder install-app-deps",
   "start": "electron .",
   "compiler": "build --linux --x64",
-  "deb64": "electron-installer-debian --src dist/linux-unpacked --dest dist/installers/ --arch amd64",
-  "publier": "build --linux --x64 -p always"
+  "publier": "build --win --ia32 -p always",
+  "rebuild": "electron-rebuild -f -w serialport"
  },
  "build": {
-  "appId": "com.electron.masaylo",
+  "appId": "com.electron.blocklino",
+  "buildDependenciesFromSource": true,
   "asar": false,
   "directories": {
    "buildResources": "./build",
    "output": "./dist"
   },
-  "files": [
-   "./compilation/**/*",
-   "./www/**/*",
-   "*.js",
-   "*.json",
-   "*.md",
-   "version",
-   "LICENSE"
-  ],
   "nsis": {
    "installerIcon": "build/install.ico",
    "uninstallerIcon": "build/app.ico",
@@ -73,10 +69,26 @@
   },
   "linux": {
    "target": [
-    "dir",
-    "AppImage"
-   ],
-   "icon": "build/app.png"
+    "AppImage",
+    "deb"
+   ]
+  },
+  "mac": {
+   "category": "public.app-category.graphics-design"
+  },
+  "dmg": {
+   "contents": [
+    {
+     "x": 110,
+     "y": 150
+    },
+    {
+     "x": 240,
+     "y": 150,
+     "type": "link",
+     "path": "/Applications"
+    }
+   ]
   },
   "fileAssociations": {
    "ext": "bloc",
@@ -84,24 +96,37 @@
    "role": "Editor",
    "icon": "build/file.ico"
   },
+
   "extraFiles": [
-   {
-    "from": "./config.json",
-    "to": "resources/"
-   },
-   {
-    "from": "compilation",
-    "to": "resources/app/compilation",
+    {
+     "from": "./config.json",
+     "to": "resources/"
+    },
+    {
+     "from": "compilation",
+     "to": "resources/app/compilation",
+     "filter": [
+      "**/*"
+     ]
+    },{
+    "from": "www",
+    "to": "resources/app/www",
     "filter": [
      "**/*"
     ]
    },
-   "README.md",
-   "LICENSE.md",
-   "config.json",
-   "version",
-   "LICENSE"
-  ],
+   {     "from": "driversUSB",
+    "to": "resources/app/driversUSB",
+    "filter": [
+     "**/*"
+    ]
+   },
+    "README.md",
+    "LICENSE.md",
+    "config.json",
+    "version",
+    "LICENSE"
+   ],
   "extraResources": [
    "dev-app-update.yml",
    "app-update.yml"
@@ -123,19 +148,17 @@
   "url": "https://github.com/OttoDIY/blockly/issues"
  },
  "devDependencies": {
-  "electron": "^7.2.4",
+  "electron": "^7.3.3",
   "electron-builder": "20.39.0",
-  "electron-installer-debian": "^3.1.0"
+  "electron-installer-dmg": "^3.0.0",
+  "electron-installer-debian": "^3.1.0",
+  "electron-rebuild": "^2.3.5"
  },
  "dependencies": {
   "ajv": "^6.10.0",
   "child_process": "1.0.2",
-  "decompress-zip": "^0.2.2",
   "electron-updater": "^4.0.6",
-  "ftp": "0.3.10",
-  "node-gyp": "^7.1.0",
-  "serialport": "^9.0.1",
-  "tableify": "^1.1.0",
-  "extract-zip": "^2.0.1"
+  "serialport": "^9.2.0",
+  "tableify": "^1.1.0"
  }
 }

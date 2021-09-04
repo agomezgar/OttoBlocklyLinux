@@ -19,6 +19,32 @@ Blockly.Arduino["serial_init"]=function(block){
 	}
   return ""
 };
+
+Blockly.Arduino["serial_init2"]=function(block){
+    var dropdown_speed=block.getFieldValue("SPEED");
+	var dropdown_pin=block.getFieldValue("pin");
+	window.localStorage.baudrate=dropdown_speed;
+	switch (dropdown_pin) {
+        case "0":
+            Blockly.Arduino.setups_["serial_begin"]="Serial.begin(" + dropdown_speed + ");";
+            break;
+        case "19":
+            Blockly.Arduino.setups_["serial_begin"]="Serial1.begin(" + dropdown_speed + ");";
+            break;
+        case "17":
+            Blockly.Arduino.setups_["serial_begin"]="Serial2.begin(" + dropdown_speed + ");";
+            break
+        case "15":
+            Blockly.Arduino.setups_["serial_begin"]="Serial3.begin(" + dropdown_speed + ");";
+            break
+	}
+  return ""
+};
+
+
+
+
+
 Blockly.Arduino["serial_read"]=function(block){
     var code="Serial.read()";
     return [code, Blockly.Arduino.ORDER_ATOMIC]
@@ -51,6 +77,20 @@ Blockly.Arduino["soft_init"]=function(block){
     Blockly.Arduino.setups_["setup_sserial"]="mySerial.begin(" + dropdown_speed + ");";
     return ""
 };
+
+Blockly.Arduino["soft_init2"]=function(block){
+    var dropdown_pin1=block.getFieldValue("PIN1");
+    var dropdown_pin2=block.getFieldValue("PIN2");
+    var dropdown_speed=block.getFieldValue("SPEED");
+    Blockly.Arduino.includes_["define_ss"]="#include <SoftwareSerial.h>";
+	Blockly.Arduino.definitions_["define_ss"]="SoftwareSerial mySerial(" + dropdown_pin1 + "," + dropdown_pin2 + ");";
+    Blockly.Arduino.setups_["setup_sserial"]="mySerial.begin(" + dropdown_speed + ");";
+    return ""
+};
+
+
+
+
 Blockly.Arduino["soft_read"]=function(block){
     var code="mySerial.read()";
     return [code, Blockly.Arduino.ORDER_ATOMIC]
@@ -263,24 +303,53 @@ Blockly.Arduino["inout_attachInterrupt"]=function(block){
 	Blockly.Arduino.codeFunctions_[funcName] ='void ' + funcName + '() {\n' + branch + '}';
 	return "";
 };
+
+
+Blockly.Arduino["inout_attachInterrupt_esp8266"]=function(block){
+	var dropdown_pin=block.getFieldValue('PIN');
+	var dropdown_mode=block.getFieldValue('mode');
+	var funcName='interrupt_'+dropdown_pin;
+	Blockly.Arduino.setups_['setup_Interrupt_'+dropdown_pin]='pinMode('+dropdown_pin+', INPUT_PULLUP);\n  attachInterrupt(digitalPinToInterrupt('+dropdown_pin+'),'+funcName+','+dropdown_mode+');';
+	var branch=Blockly.Arduino.statementToCode(block, 'DO' );
+	Blockly.Arduino.codeFunctions_[funcName] ='ICACHE_RAM_ATTR void ' + funcName + '() {\n' + branch + '}';
+	return "";
+};
+
+
+
+
 Blockly.Arduino["inout_detachInterrupt"]=function(block){
 	var dropdown_pin=block.getFieldValue('PIN');
 	return 'detachInterrupt('+dropdown_pin+');\n';
 };
 Blockly.Arduino["inout_digital_write"]=function(block){
+    var dropdown_pin=block.getFieldValue("PIN");
+    var dropdown_stat=Blockly.Arduino.valueToCode(block, "STAT", Blockly.Arduino.ORDER_ATOMIC);
+    Blockly.Arduino.setups_["setup_output_" + dropdown_pin]="pinMode(" + dropdown_pin + ", OUTPUT);";
+    var code="digitalWrite(" + dropdown_pin + ", " + dropdown_stat + ");\n";
+    return code
+};
+
+Blockly.Arduino["inout_digital_write2"]=function(block){
     var dropdown_pin=Blockly.Arduino.valueToCode(block, "PIN", Blockly.Arduino.ORDER_ATOMIC);
     var dropdown_stat=Blockly.Arduino.valueToCode(block, "STAT", Blockly.Arduino.ORDER_ATOMIC);
     Blockly.Arduino.setups_["setup_output_" + dropdown_pin]="pinMode(" + dropdown_pin + ", OUTPUT);";
     var code="digitalWrite(" + dropdown_pin + ", " + dropdown_stat + ");\n";
     return code
 };
+
 Blockly.Arduino["inout_digital_read"]=function(block){
-    var dropdown_pin=Blockly.Arduino.valueToCode(block, "PIN", Blockly.Arduino.ORDER_ATOMIC);
-    Blockly.Arduino.setups_["setup_input_" + dropdown_pin]="pinMode(" + dropdown_pin + ", INPUT_PULLUP);";
+    var pull_up=block.getFieldValue('pullup') == 'TRUE';
+    var dropdown_pin=block.getFieldValue("PIN");
+    if (pull_up) {
+        Blockly.Arduino.setups_["setup_input_" + dropdown_pin]="pinMode(" + dropdown_pin + ", INPUT_PULLUP);"
+    } else {
+        Blockly.Arduino.setups_["setup_input_" + dropdown_pin]="pinMode(" + dropdown_pin + ", INPUT);"
+    };
     var code="digitalRead(" + dropdown_pin + ")";
     return [code, Blockly.Arduino.ORDER_ATOMIC]
 };
-Blockly.Arduino["digital_read"]=function(block){
+Blockly.Arduino["inout_digital_read2"]=function(block){
     var pull_up=block.getFieldValue('pullup') == 'TRUE';
     var dropdown_pin=Blockly.Arduino.valueToCode(block, "PIN", Blockly.Arduino.ORDER_ATOMIC);
     if (pull_up) {
@@ -298,16 +367,31 @@ Blockly.Arduino["inout_analog_write"]=function(block){
     var code="analogWrite(" + dropdown_pin + ", " + value_num + ");\n";
     return code
 };
+Blockly.Arduino["inout_analog_write2"]=function(block){
+    var pin =Blockly.Arduino.valueToCode(block, "pin", Blockly.Arduino.ORDER_ATOMIC);
+    var value_num=Blockly.Arduino.valueToCode(block, "NUM", Blockly.Arduino.ORDER_ATOMIC);
+    Blockly.Arduino.setups_["setup_output" + pin]="pinMode(" + pin + ", OUTPUT);";
+    var code="analogWrite(" + pin + ", " + value_num + ");\n";
+    return code
+};
 Blockly.Arduino["inout_analog_read"]=function(block){
     var dropdown_pin=block.getFieldValue("broche");
     var code="analogRead(" + dropdown_pin + ")";
     return [code, Blockly.Arduino.ORDER_ATOMIC]
 };
-Blockly.Arduino["inout_angle_maths"]=function(block){
-    var angle=block.getFieldValue("ANGLE");
-    return [angle, Blockly.Arduino.ORDER_ATOMIC]
+Blockly.Arduino["inout_analog_read2"]=function(block){
+    var pin =Blockly.Arduino.valueToCode(block, "pin", Blockly.Arduino.ORDER_ATOMIC);
+    var code="analogRead(" + pin + ")";
+    return [code, Blockly.Arduino.ORDER_ATOMIC]
 };
+
 Blockly.Arduino["toggle"]=function(block){
+    var dropdown_pin=block.getFieldValue("PIN");
+	Blockly.Arduino.definitions_["toggle"+dropdown_pin]="boolean etat_" + dropdown_pin + "=LOW;";
+    Blockly.Arduino.setups_["setup_output_" + dropdown_pin]="pinMode(" + dropdown_pin + ", OUTPUT);";
+    return "digitalWrite(" + dropdown_pin + ", etat_" + dropdown_pin + ");\netat_"+ dropdown_pin + "=!etat_"+ dropdown_pin + ";\n";
+};
+Blockly.Arduino["toggle2"]=function(block){
     var dropdown_pin=Blockly.Arduino.valueToCode(block, "PIN", Blockly.Arduino.ORDER_ATOMIC);
 	Blockly.Arduino.definitions_["toggle"+dropdown_pin]="boolean etat_" + dropdown_pin + "=LOW;";
     Blockly.Arduino.setups_["setup_output_" + dropdown_pin]="pinMode(" + dropdown_pin + ", OUTPUT);";

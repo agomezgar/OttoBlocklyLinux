@@ -9,6 +9,7 @@ Blockly.Msg.ARD_TYPE_TEXT = "metin";
 Blockly.Msg.ARD_TYPE_BOOL = "ikili";
 Blockly.Msg.ARD_TYPE_SHORT = "ikili";
 Blockly.Msg.ARD_TYPE_NUMBER = "tamsayı";
+Blockly.Msg.ARD_TYPE_UNUMBER = "unsigned integer";
 Blockly.Msg.ARD_TYPE_LONG = "uzun tamsayı";
 Blockly.Msg.ARD_TYPE_DECIMAL = "kayan nokta sayısı";
 Blockly.Msg.ARD_TYPE_ARRAY = "dizi";
@@ -47,6 +48,7 @@ Blockly.Msg.CONTROLS_FLOW_STATEMENTS_WARNING = "Uyarı: Bu blok bir döngüde ku
 Blockly.Msg.CONTROLS_FOREACH_TITLE = "%2 listesindeki her % 1 öğesi için";
 Blockly.Msg.CONTROLS_FOREACH_TOOLTIP = "Bir listedeki her öğe için, öğenin değerini %1 değişkenine atayın ve sonra ifadeleri yürütün";
 Blockly.Msg.CONTROLS_FOR_TITLE = "%4 adımlarında %2 ile %3 arasında değişen %1 için";
+Blockly.Msg.CONTROLS_FOR_TITLE2 = "for %1 ranging from %2 to %3 (>=)in steps of - %4";
 Blockly.Msg.CONTROLS_FOR_TOOLTIP = "%1 değişkenini başlangıç numarasından bitiş numarasına ayarlayın, belirtilen adımda artırın ve belirtilen ifadeleri yürütün";
 Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP = "Koşul Ekle";
 Blockly.Msg.CONTROLS_IF_ELSE_TOOLTIP = "Son bir koşul ekle";

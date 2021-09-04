@@ -1,14 +1,8 @@
-#include <Masaylo.h>
-Masaylo m;
-
-//no hay definiciones
-
-
 void setup() {
-  m.init(5,6,9,10);
+  Serial.begin(9600);
+
 }
 
 void loop() {
-  m.atras();
 
 }

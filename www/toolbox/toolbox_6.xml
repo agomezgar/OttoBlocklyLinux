@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <toolbox>
-	<parametre id="defaultCategories">CAT_OTTO,CAT_LOGIC,CAT_MATH,CAT_ARDUINO,CAT_ARDUINO_TIME,CAT_servo,CAT_ultrason</parametre>
+	<parametre id="defaultCategories">CAT_ARDUINO,CAT_OTTO,CAT_ARDUINO_TIME,CAT_LOGIC,CAT_MATH,CAT_FUNCTIONS,CAT_VARIABLES</parametre>
     <category name="CAT_ARDUINO" colour="#2d2d64">
-		<block type="base_begin"></block>
-		<block type="base_end"></block>
-		<block type="base_loop"></block>
+		<block type="base_setup_loop"></block>
 	</category>
 	<category name="CAT_OTTO" colour="#32D900">
 		<block type="otto9_home"></block>
@@ -16,17 +14,6 @@
 		<block type="otto9_gesture"></block>
 		<block type="otto9_smooth"></block>
 	</category>
-	<category name="CAT_OTTOH" colour="#747F8A">
-			<block type="otto9_homeh"></block>
-			<block type="otto9_calibrationh"></block>	
-			<block type="otto9_eeprom"></block>
-			<block type="otto9_moveh"></block>
-			<block type="otto9_danceh"></block>
-			<block type="otto9_doh"></block>
-			<block type="otto9_soundh"></block>
-			<block type="otto9_gestureh"></block>
-			<block type="otto9_arms"></block>
-	</category>
 	<category name="CAT_ARDUINO_TIME" colour="#00929f">
 			<block type="base_delay">
 					<value name="DELAY_TIME">
@@ -35,6 +22,31 @@
 				</shadow>
 			</value></block>
 	</category>
+			<category name="CAT_ARDUINO_IN" colour="#00929f">
+		<block type="inout_digital_write">
+		<value name="PIN"><shadow type='analog_pin'>	<field name="NUM">10</field>	</shadow></value>
+		<value name="STAT"><shadow type="math_number">	<field name="NUM">1</field>	</shadow></value>
+		</block>	
+		<block type="inout_onoff"></block>
+		<block type="digital_read">
+				<value name="PIN"><shadow type='analog_pin'>	<field name="NUM">10</field>	</shadow></value>
+				</block>
+		<block type="inout_analog_write">
+		<value name="NUM"><shadow type="math_number">	<field name="NUM">255</field>	</shadow></value>
+		</block>
+		<block type="inout_analog_write2">
+		<value name="pin"><shadow type="math_number">	<field name="NUM">3</field>	</shadow></value>
+		<value name="NUM"><shadow type="math_number">	<field name="NUM">255</field>	</shadow></value>
+		</block>
+		<block type="inout_analog_read"></block>
+		<block type="inout_analog_read2">		<value name="pin"><shadow type='analog_pin'>	<field name="NUM">A0</field>	</shadow></value></block>
+		<block type="toggle">
+				<value name="PIN"><shadow type="math_number">	<field name="NUM">10</field>	</shadow></value>
+				</block>
+		<block type="inout_attachInterrupt"></block>
+		<block type="inout_detachInterrupt"></block>
+		<block type="mrtduino_pin"></block>
+	</category>	
 	<category name="CAT_LOGIC" colour="#ffb400">
 		<block type="controls_if"></block>
 		<block type="controls_repeat_ext">
@@ -56,75 +68,30 @@
 			</value>
 			</block>
     </category>
+
+	<category name="CAT_FUNCTIONS" custom="PROCEDURE" colour="#FF0000"></category>
+
 	<category name="CAT_VARIABLES" custom="VARIABLE" colour="#ff5700"></category>
-	<category name="CAT_ultrason" colour="#2a93e8">
-			<block type="otto9_obstacle"></block>
-			<block type="otto9_touchbutton"></block>
-			<block type="otto9_getnoise"></block>
-	</category>
-	<category name="CAT_servo" colour="#2d2dd1">	
-			<block type="servo_move">
-				<value name="DEGREE">
-				<shadow type="inout_angle_maths">
-					<field name="NUM">90</field>
-				</shadow>
-			</value>
-			<value name="PIN">
-				<shadow type="math_number">
-					<field name="NUM">2</field>
-				</shadow>
-			</value>
-		</block>
-		<block type="otto9_wheels"></block>
-	</category>
-	<category name="CAT_ARDUINO_matrice8x8" colour="#747F8A">
-			<block type="otto9_mouth"></block>
-			<block type="otto9_matrix_text"></block>
-			<block type="otto9_mouth#">
-					<value name="mouth">
-				<shadow type="math_number">
-					<field name="NUM">10</field>
-				</shadow>
-			</value>
-		</block>
-			<block type="otto9_matrix"></block>
-			<block type="otto9_matrixp">
-					<value name="X">
-				<shadow type="math_number">
-					<field name="NUM">0</field>
-				</shadow>
-			</value>
-			<value name="Y">
-				<shadow type="math_number">
-					<field name="NUM">0</field>
-				</shadow>
-			</value>
+	
+	<category name="CAT_ARDUINO_COMM_SERIAL" colour="#0060aa">
+			<block type="serial_init">
+			<value name="PIN_TX"><shadow type="math_number"><field name="NUM">12</field></shadow></value>
+			<value name="PIN_RX"><shadow type="math_number"><field name="NUM">11</field></shadow></value>
 			</block>
-			<block type="otto9_clear"></block>
-		</category>
-	<category name="CAT_ARDUINO_matrice16x8" colour="#32D900">
-			<block type="otto9_eyes"></block>
-			<block type="otto9_eyes_text"></block>
-			<block type="otto9_eyes#">
-				<value name="eyes">
-				<shadow type="math_number">
-					<field name="NUM">3</field>
-				</shadow>
-			</value>
-		</block>
-			<block type="otto9_eyesm"></block>
-			<block type="otto9_eyesp">
-					<value name="X">
-				<shadow type="math_number">
-					<field name="NUM">0</field>
-				</shadow>
-			</value>
-			<value name="Y">
-				<shadow type="math_number">
-					<field name="NUM">0</field>
-				</shadow>
-			</value>
+			<block type="serial_available"></block>  
+            <block type="serial_read"></block>
+			<block type="serial_read_string"></block>
+			<block type="serial_read_number"></block>
+			<block type="serial_printfor" x="13" y="38"><field name="TYPE">DEC</field>
+			<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
 			</block>
-			<block type="otto9_eyes_clear"></block>
+			<block type="serial_print">
+			<value name="CONTENT"><shadow type="text"><field name="TEXT">text</field></shadow></value>
+			</block>
+            <block type="serial_println">
+			<value name="CONTENT"><shadow type="text"><field name="TEXT">text</field></shadow></value>
+			</block>
+            <block type="serial_write" x="38" y="38"><value name="CONTENT"><shadow type="text"><field name="TEXT">A</field></shadow></value>
+			</block>
 		</category>
 </toolbox>

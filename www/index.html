@@ -24,15 +24,49 @@
 	<script type="text/javascript" src="blocs&generateurs/blockly_generateurs_cpp.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/blockly_generateurs_python.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/actionneur.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/RTTTL.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/capteur.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/SimpleSensors.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/SimpleSensors2.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/softBT.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/SerialUSB.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/SoftwareSerial.js"></script> 
+	<script type="text/javascript" src="blocs&generateurs/OpenSmartMP3.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/ST7735.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/MatrizLed.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/MAX7219.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/TCS34725.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/HMC5883.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/RFID.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/gyro.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/GPS.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/ESPFunctions.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/RadioTEA5767.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/Lcd_I2C.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/Keyboard_and_mouse.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/APDS9960.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/mu_vision_sensor.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/remoteControl.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/RTC_DS3231.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/html.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/microbit.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/otto.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/ottoesp.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/oled.js"></script>
-	<script type="text/javascript" src="blocs&generateurs/sensors.js"></script>
-	<script type="text/javascript" src="blocs&generateurs/motors.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/encoder.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/motor.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/escornabot.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/neopixel.js"></script>
 	<script type="text/javascript" src="blocs&generateurs/matrix.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/MQTT.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/Thingspeak.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/Telegram.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/OpenWeather.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/IFTTT.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/NTP.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/WifiBasic.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/WifiServer.js"></script>
+	<script type="text/javascript" src="blocs&generateurs/text.js"></script>
 	<script type="text/javascript" src="js/typing.js"></script>
 	<script type="text/javascript" src="lang/code.js"></script>
 	<script type="text/javascript" src="js/hexlify.js"></script>
@@ -63,20 +97,40 @@
 				<li role="presentation" class="active"><a href="#content_blocks" aria-controls="content_blocks" role="tab" data-toggle="tab"></a></li>
 				<li role="presentation"><a href="#content_code" aria-controls="content_code" role="tab" data-toggle="tab"></a></li>
 			</ul>
-				<input id="codeORblock" checked data-size="small" data-toggle="toggle" data-on="<span class='fa fa-puzzle fa-1_5x' style='color:#727272'></span>" data-off="<span class='fa fa-code fa-1_5x'></span>" data-style="ios" data-onstyle="default" data-offstyle="default" type="checkbox">
-				<span style="color:white;font-size:20"> | </span>
-				<button id="btn_config" class="btn btn-arduino" data-toggle="modal" data-target="#configModal">
-					<span class="fa fa-cog fa-lg fa-fw"></span>
+				<span id="labelToolboxDefinition" style="color:white;font-size:4" > </span> 
+				<div id="btn_group1"  class="btn-group" >
+				<button id="btn_level1" class="btn btn-arduino-rect" >
+				    <img src='./media/level1.png' >
+				
+					<!-- <span class="fa fa-reddit fa-lg fa-fw"></span> -->
 				</button>
+				<button id="btn_level2" class="btn btn-arduino-rect" >
+					<img src='./media/level2.png' >
+					<!--<span class="fa fa-user fa-lg fa-fw"></span>-->
+				</button>
+				<button id="btn_level3" class="btn btn-arduino-rect" >
+					<img src='./media/level3.png' >
+					<!--<span class="fa fa-graduation fa-lg fa-fw"></span>-->
+				</button>
+				</div>
 				<span style="color:white;font-size:20"> | </span>
+				
+				 <select id="languageMenu" onchange="BlocklyDuino.changelanguage();" ></select>
+				
+			<!--	<button id="btn_config" class="btn btn-arduino" data-toggle="modal" data-target="#configModal">
+					<span class="fa fa-cog fa-lg fa-fw"></span>
+				</button> -->
+				
+				<span style="color:white;font-size:20"> | </span>
+				<button id="btn_example" class="btn btn-arduino-rect" data-toggle="modal" data-target="#exampleModal">
+					<span class="fa fa-graduation fa-lg fa-fw"></span>
+				</button>
+			<!--	<span id="exampleModalLabel" style="color:white;font-size:4" > </span> -->
 				<button id="btn_new" class="btn btn-arduino-rect">
 					<span class="fa fa-file fa-fw"></span>
 				</button>
 				<button id="btn_fakeload" class="btn btn-arduino-rect">
 					<span class="fa fa-folder-open fa-lg fa-fw"></span>
-				</button>
-				<button id="btn_example" class="btn btn-arduino-rect" data-toggle="modal" data-target="#exampleModal">
-					<span class="fa fa-file-text fa-lg fa-fw"></span>
 				</button>
 				<input type="file" id="load" accept=".bloc,.xml,.py,.ino" style="display: none;" />
 				<button id="btn_saveXML" class="btn btn-arduino-rect">
@@ -93,33 +147,27 @@
 				<button id="btn_redo" class="btn btn-arduino">
 					<span class="fa fa-repeat"> </span>
 				</button>
+				
 				<span style="color: white; font-size: 4">|</span>
 				<button id="btn_card" class="btn btn-arduino-rect" data-toggle="modal" data-target="#card" style="margin-top: -2px; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
 					<span class="fa fa-microchip fa-fw" > </span>
 				</button>	
 				<select style="margin-left: -3px; height: 30px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0px;" id="boards" onchange="BlocklyDuino.change_card();">
 					<optgroup label="C / C++">
-						<option value="uno" >Arduino Uno</option>
-						<option value="leonardo" >Arduino Léonardo</option>
 						<option value="nanooptiboot">Arduino Nano</option>
 						<option value="nano" >Arduino Nano (old bootloader)</option>
 						<option value="nona4809">Arduino Nano Every</option>
+						<option value="OttoESP" >Otto IoT</option>
+						<option value="wemosD1miniPro" >WeMos D1 mini</option>
+						<option value="Ottoky" >Ottoky</option>
+						<option value="uno" >Arduino Uno</option>
+						<option value="leonardo" >Arduino Léonardo</option>
 						<option value="micro" >Arduino Micro</option>
-						<option value="mini" >Arduino Mini</option>
-						<option value="pro8" >Arduino Pro / Pro Mini 3.3V</option>	
-						<option value="mega" >Arduino Méga 2560</option>					
-						<option value="yun" >Arduino Yun</option>
-						<!--<option value="atmegang" >DAGU RS027</option>  -->
-						<!--<option value="pro16" >DAGU RS040</option>  -->
-					</optgroup>
-					<optgroup label="Python">
-						<option value="esp8266" >ESP 8266</option>
-						<option value="esp32" >ESP 32</option>
-						<option value="microbit" >micro:bit</option>
-						<option value="pyboard" >Pyboard</option>
+						<option value="mkrwifi1010" >Arduino:samd MKR WiFi 1010</option>
+						
 					</optgroup>
 				</select>
-				<span style="color:white;font-size:4">|</span>
+				<!--<span style="color:white;font-size:4">|</span>
 				<button id="btn_usb" class="btn btn-arduino-rect" data-toggle="modal" data-target="#usb" style="margin-top: -2px; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
 					<span class="fa fa-usb fa-fw"></span>
 				</button>	
@@ -131,16 +179,20 @@
 				<button id="btn_flash" class='btn btn-arduino' data-toggle="modal" data-target="#message">
 					<span class="fa fa-arrow-right fa-1_5x fa-fw"> </span>
 				</button>
-				<span id="survol" style="color:#fff"></span>
+				<span id="survol" style="color:#fff"></span>-->
+				
 		</div>
 		<div id="btn_group" class="btn-group" role="group">
-			<button id="btn_search" class='btn btn-default'><span class="fa fa-binoculars"> </span></button>
-			<!--<button id="btn_bin" class='btn btn-default'>	<span class="fa fa-code-fork fa-lg fa-fw"> </span> </button> -->
-			<button id="btn_factory" class="btn btn-default"><span class="fa fa-industry fa-fw"> </span> </button> 
-			<button id="btn_about" class="btn btn-default" data-toggle="modal" data-target="#aboutModal"><span class="fa fa-question fa-lg fa-fw"></span> </button>
-			<button id="btn_term" class="btn btn-default"><span class="fa fa-search fa-lg fa-fw"></span></button>
-			<button id="btn_preview" class="btn btn-default"><span class="fa fa-code fa-lg fa-fw"> </span>	</button>
+			<button id="btn_about" class="btn btn-arduino-rect" data-toggle="modal" data-target="#aboutModal"><span class="fa fa-question fa-lg fa-fw"></span> </button>
+						<!-- <button id="btn_bin" class='btn btn-default'>	<span class="fa fa-download"> </span> </button> -->
+						<!-- <button id="btn_factory" class="btn btn-default"><span class="fa fa-industry fa-fw"> </span> </button>  -->
+			<button id="btn_term" class="btn btn-arduino-rect"><span class="fa fa-search fa-lg fa-fw"></span></button>
+			<button id="btn_preview" class="btn btn-arduino-rect"><span class="fa fa-code fa-lg fa-fw"> </span>	</button>
+			<button id="btn_search" class='btn btn-arduino-rect'><span class="fa fa-binoculars"> </span></button>
+			<input id="codeORblock" checked data-size="small" data-toggle="toggle" data-on="<span class='fa fa-puzzle fa-1_5x' style='color:#727272'></span>" data-off="<span class='fa fa-code fa-1_5x'></span>" data-style="ios" data-onstyle="default" data-offstyle="default" type="checkbox">
+				
 		</div>
+		
 	</div>
 	<div id="divBody" class="tab-content">
 		<div role="tabpanel" id="content_blocks" class="tab-pane fade in active" style="position: relative;">
@@ -163,10 +215,8 @@
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-body" >
-					<div><span id = "messageDIV"></span><button id="btn_close_message" type="button" class="close" aria-label="Close" style="display: none;">&#215;</button></div>
-					<button id="btn_detail" type="button" class="btn btn-xs btn-default" style="display: none;">détails</button>
-					<div id = "detailDIV"></div>
-				</div>
+					<div id = "messageDIV"></div>
+				</div>  
 			</div>
 		</div>
 	</div>
@@ -220,9 +270,8 @@
 					<label id="labelToolboxDefinition"></label>
 					<select id="toolboxes">
 						<option value="toolbox_6"selected="selected">Beginner 👶</option>
-						<option value="toolbox_lycee">Maker 👨‍🏭</option>
 						<option value="toolbox_arduino_all" >Advanced 👨‍💻</option>
-						/// option value="toolbox_microbit">Master 👨‍🚀 
+						<option value="toolbox_master">Master 👨‍🚀</option>
 					</select>
 				</div>
 			</div>
@@ -264,42 +313,24 @@
 			<div class="arduino_card_mini_picture_div" style="height: 516px">
 				<img id="arduino_card_mini_picture" style="max-width: 100%" />
 			</div>
-			<select size="16" multiple id="pinout" onchange="BlocklyDuino.cardPicture_change();">
+			<select size="14" multiple id="pinout" onchange="BlocklyDuino.cardPicture_change();">
 				<optgroup label="C / C++">
-					<option value="uno" >Arduino Uno</option>
-					<option value="leonardo" >Arduino Léonardo</option>
 					<option value="nanooptiboot">Arduino Nano</option>
 					<option value="nano" >Arduino Nano (old bootloader)</option>
 					<option value="nona4809">Arduino Nano Every</option>
+					<option value="OttoESP" >Otto IoT</option>
+					<option value="wemosD1miniPro" >WeMos D1 mini</option>
+					<option value="Ottoky" >Ottoky</option>
+					<option value="uno" >Arduino Uno</option>
+					<option value="leonardo" >Arduino Léonardo</option>
 					<option value="micro" >Arduino Micro</option>
-					<option value="mini" >Arduino Mini</option>
-					<option value="pro8" >Arduino Pro / Pro Mini 3.3V</option>	
-					<option value="mega" >Arduino Méga 2560</option>					
-					<option value="yun" >Arduino Yun</option>
-					<!--<option value="atmegang" >DAGU RS027</option>  -->
-					<!--<option value="pro16" >DAGU RS040</option>  -->
-				</optgroup>
-				
-				<optgroup label="Python">
-					<option value="esp8266" >ESP 8266</option>
-					<option value="esp32" >ESP 32</option>
-					<option value="microbit" >micro:bit</option>
-					<option value="pyboard" >Pyboard</option>
+					<option value="mkrwifi1010" >Arduino:samd MKR WiFi 1010</option>
 				</optgroup>
 			</select>
 			<br><br>
-			<div class="alert alert-warning" role="alert" id="warning">
+			<div id="infoboard"></div>
+			<!-- <div class="alert alert-warning" role="alert" id="warning"> -->
 			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
 		  </div>
 		</div>
 	  </div>
@@ -361,12 +392,14 @@
 		</div>
 	</div>
 </body>
-<script>
+<script type="text/javascript">	
 	$(window).load(function(){$(".loading").fadeOut("slow")});
 	ace.require("ace/ext/language_tools");
 	var editor = ace.edit("content_code");
+    editor.setTheme("ace/theme/sqlserver");
 	editor.session.setTabSize(2);
 	editor.setShowPrintMargin(false);
-	require('../index')
+	require('../resources/app/index.js');
+	require('../resources/app/factory.js');
 </script>
 </html>

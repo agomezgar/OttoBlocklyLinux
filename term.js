@@ -6,7 +6,7 @@ window.addEventListener('load', function load(event) {
 	var win = remote;
 	var connexion = false;
 	if (localStorage.getItem('baudrate')==null){
-		alert('There was not a defined baudrate. Set it at default 9600 bauds');
+		alert('no se había definido velocidad de conexión. Se pone por defecto a 9600 baudios');
 		localStorage.setItem("baudrate","9600");
 	}
 	document.getElementById('btn_envoi').disabled=true
@@ -32,17 +32,20 @@ window.addEventListener('load', function load(event) {
 		s_p = new SerialPort(com,{baudRate:baud, autoOpen:false})
 		var parser = s_p.pipe(new line({ delimiter: '\n' }))
 		if (connexion){
-			document.getElementById('btn_connect').innerHTML="<span class='fa fa-play'> START</span>"
+			document.getElementById('btn_connect').innerHTML="<span class='fa fa-play'> Arrancar</span>"
 			document.getElementById('btn_envoi').disabled=true
-			s_p.close(function (err) { moniteur.innerHTML += 'STOP<br>' })
+			s_p.close(function (err) { moniteur.innerHTML += 'paro<br>' })
 			connexion = false
 		} else {
 			document.getElementById('btn_connect').innerHTML="<span class='fa fa-pause'> Parar</span>"
 			document.getElementById('btn_envoi').disabled=false
-			s_p.open(function (err) { moniteur.innerHTML += 'Communication started!<br>' })
+			s_p.open(function (err) { moniteur.innerHTML += 'inicio de la comunicación<br>' ;
+		console.log(err);
+	})
 			connexion = true
 			parser.on('data', function(data){
 				if (connexion){
+					console.log('data');
 					moniteur.innerHTML += data + "<br>"
 					moniteur.scrollTop = moniteur.scrollHeight;
 					moniteur.animate({scrollTop: moniteur.scrollHeight})

@@ -13,7 +13,7 @@ Blockly.Blocks.math.HUE = "#008000";
 Blockly.Blocks.procedures.HUE = "#FF0000";
 Blockly.Blocks.texts.HUE = "#FD6C9E";
 Blockly.Blocks.variables.HUE = "#ff5700";
-Blockly.Blocks.tab.HUE = "#804000";
+Blockly.Blocks.tab.HUE = "#ff5700";
 
 // controle
 Blockly.Blocks["controls_if"] = {
@@ -459,6 +459,71 @@ Blockly.Blocks["controls_for"] = {
         if (Blockly.Names.equals(oldName, this.getFieldValue("VAR"))) this.setFieldValue(newName, "VAR")
     }
 };
+
+
+Blockly.Blocks["controls_for2"] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.CONTROLS_FOR_TITLE2,
+            args0: [{
+                type: "field_variable",
+                name: "VAR",
+                variable: null
+            }, {
+                type: "input_value",
+                name: "FROM",
+                check: "Number",
+                align: "RIGHT"
+            }, {
+                type: "input_value",
+                name: "TO",
+                check: "Number",
+                align: "RIGHT"
+            }, {
+                type: "input_value",
+                name: "BY",
+                check: "Number",
+                align: "RIGHT"
+            }],
+            inputsInline: true,
+            previousStatement: null,
+            nextStatement: null,
+            colour: Blockly.Blocks.controls.HUE,
+            helpUrl: Blockly.Msg.HELPURL
+        });
+        this.appendStatementInput("DO");
+        var thisBlock = this;
+        this.setTooltip(function() {
+            return Blockly.Msg.CONTROLS_FOR_TOOLTIP.replace("%1", thisBlock.getFieldValue("VAR"))
+        })
+    },
+    customContextMenu: function(options) {
+        if (!this.isCollapsed()) {
+            var option = {
+                enabled: true
+            };
+            var name = this.getFieldValue("VAR");
+            option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace("%1", name);
+            var xmlField = goog.dom.createDom("field", null, name);
+            xmlField.setAttribute("name", "VAR");
+            var xmlBlock = goog.dom.createDom("block", null, xmlField);
+            xmlBlock.setAttribute("type", "variables_get");
+            option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+            options.push(option)
+        }
+    },
+    getVarType: function(varName) {
+        return Blockly.Types.NUMBER
+    },
+    renameVar: function(oldName, newName) {
+        if (Blockly.Names.equals(oldName, this.getFieldValue("VAR"))) this.setFieldValue(newName, "VAR")
+    }
+};
+
+
+
+
+
 Blockly.Blocks["logic_negate"] = {
     init: function() {
         this.jsonInit({
@@ -831,6 +896,34 @@ Blockly.Blocks["math_number"] = {
         this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP)
     }
 };
+
+Blockly.Blocks['analog_pin'] = {
+  /**
+   * Block for analog pin
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl('');
+    this.setColour(Blockly.Blocks.math.HUE);
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput('A1'), 'NUM');
+    this.setOutput(true, 'Number');
+    this.setTooltip('Analog input');
+  }
+};
+Blockly.Blocks["math_map"]={init:function(){
+    this.setColour(Blockly.Blocks.math.HUE);
+    this.appendValueInput("pin", "Number").setAlign(Blockly.ALIGN_RIGHT).appendField("map");
+    this.appendValueInput("A1", "Number").setAlign(Blockly.ALIGN_RIGHT).appendField("from");
+    this.appendValueInput("A2", "Number").setAlign(Blockly.ALIGN_RIGHT).appendField("-");
+    this.appendValueInput("B1", "Number").setAlign(Blockly.ALIGN_RIGHT).appendField("to");
+    this.appendValueInput("B2", "Number").setAlign(Blockly.ALIGN_RIGHT).appendField("-");
+	this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setTooltip(Blockly.Msg.m_pap_tooltip);
+    this.setHelpUrl(Blockly.Msg.HELPURL);}
+};
+
 Blockly.Blocks["math_arithmetic"] = {
     init: function() {
         var OPERATORS = [
@@ -1297,7 +1390,7 @@ Blockly.Blocks["creer_tableau"] = {
         this.appendValueInput("D0")
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField(new Blockly.FieldDropdown([[Blockly.Msg.ARRAY_taille, "c1"],[Blockly.Msg.ARRAY_contenu, "c2"]]), "choix");
-        this.setInputsInline(false);
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.tab.HUE);
@@ -1356,7 +1449,7 @@ Blockly.Blocks["fixer_tableau"] = {
 			.appendField(new Blockly.FieldDropdown([["1", "1"],["2", "2"],["3", "3"],["4", "4"],["5", "5"]],function(option){this.sourceBlock_.updateShape_(option)}),"dim");
         this.appendValueInput("value").setAlign(Blockly.ALIGN_RIGHT).appendField(Blockly.Msg._AT);
         this.appendValueInput("D0").setCheck("Number").setAlign(Blockly.ALIGN_RIGHT).appendField(Blockly.Msg.ARRAY_index);
-        this.setInputsInline(false);
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.tab.HUE);
@@ -1415,7 +1508,7 @@ Blockly.Blocks["array_getIndex"] = {
 			.appendField(new Blockly.FieldDropdown([["1", "1"],["2", "2"],["3", "3"],["4", "4"],["5", "5"]],function(option){this.sourceBlock_.updateShape_(option)}),"dim");
         this.appendValueInput("D0").setCheck("Number").setAlign(Blockly.ALIGN_RIGHT).appendField(Blockly.Msg.ARRAY_index);
         this.setOutput(true);
-        this.setInputsInline(false);
+        this.setInputsInline(true);
         this.setColour(Blockly.Blocks.tab.HUE);
         this.setTooltip(Blockly.Msg.ARRAY_GETINDEX_TOOLTIP1);
         this.setHelpUrl(Blockly.Msg.HELPURL)
@@ -1747,7 +1840,7 @@ Blockly.Blocks["procedures_mutatorcontainer"] = {
 Blockly.Blocks["procedures_mutatorarg"] = {
     init: function() {
         var field = new Blockly.FieldTextInput("x", this.validator_);
-        this.appendDummyInput().appendField("utiliser la variable").appendField(field, "NAME").appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TYPE)
+        this.appendDummyInput().appendField("use variable").appendField(field, "NAME").appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TYPE)
 			.appendField(new Blockly.FieldDropdown(Blockly.Types.getValidTypeArray()), "TYPEVAR");
         this.setPreviousStatement(true);
         this.setNextStatement(true);
@@ -2020,4 +2113,71 @@ Blockly.Blocks["procedures_ifreturn"] = {
         }
     },
     FUNCTION_TYPES: ["procedures_defnoreturn", "procedures_defreturn"]
+};
+
+Blockly.Blocks['mrtduino_pin'] = {
+  /**
+   * Block for MRTduino board
+ 
+   */
+  init: function() {
+    this.setHelpUrl('https://www.logix5.com/roboticaeducativa/mrtduino-board/');
+    this.setColour("#00929f");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["Port1", "13"], ["Port2", "15"],["Port3", "16"],["Port4", "14"],["Port5", "18"],["Port6", "19"],["Port7", "20"],["Port8", "21"],["Port9", "5"],["Port10", "9"],["Port11", "11"],["Port12", "12"],["Port13", "2"],["Port14", "3"],["Port15", "0"],["Port16", "1"],["RC -", "10"],["RC +", "22"],["RC S", "23"]]), "MRTPIN")
+    this.setOutput(true, 'Number');
+    this.setTooltip('MRTduino pins conversion. You select port and this block convert into arduino pin');
+  }
+};
+
+Blockly.Blocks['conversion_tobyte'] = {
+  init: function() {
+     this.setColour(Blockly.Blocks.math.HUE);
+    this.appendValueInput("NAME")
+        .appendField(Blockly.Msg.CONV_tobyte);
+	this.setOutput(true, 'Number');
+    //this.setPreviousStatement(true);
+    //this.setNextStatement(true);
+    this.setTooltip('Converts a value to the Byte data type. ');
+    this.setHelpUrl('https://www.arduino.cc/en/Reference/ByteCast');
+  }
+};
+
+Blockly.Blocks['conversion_toint'] = {
+  init: function() {
+    this.setColour(Blockly.Blocks.math.HUE);
+    this.appendValueInput("NAME")
+        .appendField(Blockly.Msg.CONV_toint);
+	this.setOutput(true, 'Number');
+    //this.setPreviousStatement(true);
+    //this.setNextStatement(true);
+    this.setTooltip('Converts a value to the Int data type. ');
+    this.setHelpUrl('https://www.arduino.cc/en/Reference/IntCast');
+  }
+};
+
+Blockly.Blocks['conversion_tounsignedint'] = {
+  init: function() {
+     this.setColour(Blockly.Blocks.math.HUE);
+    this.appendValueInput("NAME")
+        .appendField(Blockly.Msg.CONV_tounsigendint);
+	this.setOutput(true, 'Number');
+    //this.setPreviousStatement(true);
+    //this.setNextStatement(true);
+    this.setTooltip('Converts a value to the Int data type. ');
+    this.setHelpUrl('https://www.arduino.cc/en/Reference/IntCast');
+  }
+};
+
+Blockly.Blocks['conversion_tofloat'] = {
+  init: function() {
+    this.setColour(Blockly.Blocks.math.HUE);
+    this.appendValueInput("NAME")
+        .appendField(Blockly.Msg.CONV_tofloat);
+	this.setOutput(true, 'Number');
+    //this.setPreviousStatement(true);
+    //this.setNextStatement(true);
+    this.setTooltip('Converts a value to the float data type. ');
+    this.setHelpUrl('https://www.arduino.cc/en/Reference/floatCast');
+  }
 };
