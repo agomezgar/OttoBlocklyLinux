@@ -2,11 +2,52 @@ var { ipcRenderer, shell, clipboard } = require("electron")
 var { exec } = require('child_process')
 var sp = require('serialport')
 var fs = require('fs')
+var fs2 = require("fs-extra");
 var path = require('path')
 var appVersion = window.require('electron').remote.app.getVersion()
 var tableify = require('tableify')
 const { PassThrough } = require("stream")
+const homedir = require('os').homedir();
 
+var instalado=true;
+function creaOtto(){
+	//Creamos un directorio auxiliar en home
+alert('It\'s the first time you use this version. Give some time to install'); 
+//alert ('Aviso: si tenías Arduino previamente instalado, y habías instalado alguna librería poco común, es posible que después tengas que reinstalarla...');	
+var dir=homedir+'/.otto';
+	var dir2=dir+'/'+appVersion
+	var dir3=homedir+'/.otto/';
+	console.log(appVersion);
+if (fs.existsSync(dir)){
+	console.log("Deleting previous folder...");
+	fs2.removeSync(dir,{ recursive: true });
+}
+	fs.mkdirSync(dir,function(err,stdout){
+		if (err) {return console.error(err);}
+		else{console.log('1. Folder correctly created: '+stdout);
+	};
+	});
+	fs.writeFile(dir2, appVersion, (err,stdout) => {
+        if(err){
+            console.log("Problem: "+ err.message)
+        }
+                    
+        console.log("Version file "+appVersion+" created");
+		console.log(stdout);
+	//	alert("creaMasaylo() terminado");
+	var fuente=__dirname+('/compilation/'); 
+	var dir=homedir+'/.otto';
+console.log(__dirname);
+	fs2.copy(fuente, dir, function (err,stdout) {
+		if (err) return console.error(err)
+		console.log('Created app folder in home!'+stdout);
+		alert("Created folder ./otto in your home directory. You can now work...");
+
+	  })
+    });
+	instalado=true;
+
+}
 window.addEventListener('load', function load(event) {
 	var quitDiv = '<button type="button" class="close" data-dismiss="modal" aria-label="Close">&#215;</button>'
 	var checkBox = document.getElementById('verifyUpdate')
@@ -196,10 +237,28 @@ window.addEventListener('load', function load(event) {
 				messageDiv.innerHTML = Blockly.Msg.check + ':✅ OK' + quitDiv
 			})
 		} else {
+			if(process!="win32"){
+	
+				var dir=homedir+'/.otto/'+appVersion;
+				if (!fs.existsSync(dir)){
+					//Ponemos instalado en false para impedir cualquier proceso hasta que finalice la instalación
+			instalado=false;
+			// messageDiv.innerHTML='Umm... Parece que es la primera vez que ejecutas esta versión. Espera un momento...';
+			// btn_close_message.style.display = "inline"
+			
+			//creaMasaylo().then(copiaArchivosCompilacion().then(actualizaTarjetasArduino().then(extraeLibrerias().then(terminado(data)))));
+			creaOtto();
+			messageDiv.innerHTML="Close this window and wait."+quitDiv;
+			btn_close_message.style.display="inline";
+			return;	
+			}
+			
+			}
+			if (instalado){
 			console.log(data);
 			//fs.writeFile('./compilation/arduino/ino/sketch.ino', data, function(err){
-			fs.writeFile(path.join(__dirname,'/compilation/arduino/sketch/sketch.ino'), data, function(err){	
-				
+		
+				fs.writeFile(homedir+'/.otto/arduino/sketch/sketch.ino', data, function(err){
 				if (err) return console.log(err)
 			})
 		
@@ -225,7 +284,7 @@ window.addEventListener('load', function load(event) {
 				messageDiv.innerHTML = Blockly.Msg.check + ': OK' + quitDiv
 			}) */
 			
-			exec(cmd , {cwd: path.join(__dirname,'/compilation/arduino')} , (error, stdout, stderr) => {
+			exec(cmd , {cwd: homedir+'/.otto/arduino/'} , (error, stdout, stderr) => {
 			if (error) {
 					
 						messageDiv.style.color = '#ff0000'
@@ -245,6 +304,7 @@ window.addEventListener('load', function load(event) {
 			
 		}
 		localStorage.setItem("verif",true)
+	}
 	})
 	$('#btn_flash').on('click', function(){
 		
@@ -261,15 +321,34 @@ window.addEventListener('load', function load(event) {
 			messageDiv.innerHTML = Blockly.Msg.com2 + quitDiv
 			return
 		}
+		var dir=homedir+'/.otto/'+appVersion;	
+		console.log("Buscando antes de cargar "+dir);
+		if (!fs.existsSync(dir)){
+	instalado=false;
+	creaOtto();
+	messageDiv.innerHTML='Close this window and wait a while...'+quitDiv;
+	btn_close_message.style.display = "inline"
+	console.log("Iniciando creaOtto()")
+	//creaMasaylo().then(copiaArchivosCompilacion().then(actualizaTarjetasArduino().then(extraeLibrerias().then(terminado(data)))));
+	
+	
+	return;	
+	}
+	if (instalado){
+
 		if ( localStorage.getItem('verif') == "false" ){
 			messageDiv.style.color = '#000000'
 			messageDiv.innerHTML = Blockly.Msg.check + '<i class="fa fa-spinner fa-pulse fa-1_5x fa-fw"></i>'
 			//fs.writeFile('./compilation/arduino/ino/sketch.ino', data, function(err){
 			//fs.writeFile('./compilation/arduino/sketch/sketch.ino', data, function(err){
-				fs.writeFile(path.join(__dirname,'/compilation/arduino/sketch/sketch.ino'), data, function(err){	
+				fs.writeFile(homedir+'/.otto/arduino/sketch/sketch.ino', data, function(err){
 	
 
-				if (err) return console.log(err)
+				if (err) {
+					 console.log(err)
+					 alert ("error copying files");
+					 return
+				}
 			})
 		
 		  
@@ -277,7 +356,7 @@ window.addEventListener('load', function load(event) {
 			var cmd='./arduino-cli compile  --fqbn '+ upload_arg+' sketch/sketch.ino';
 
 			
-			exec(cmd , {cwd: path.join(__dirname,'/compilation/arduino')} , (error, stdout, stderr) => {
+			exec(cmd , {cwd: homedir+'/.otto/arduino/'} , (error, stdout, stderr) => {
 			if (error) {
 					
 						messageDiv.style.color = '#ff0000'
@@ -313,11 +392,11 @@ window.addEventListener('load', function load(event) {
 		  //  exec( cmd, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){	
 			//exec('flash.bat ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
 				cmd='./arduino-cli upload --port '+portserie.value+' --fqbn '+ upload_arg+' sketch/sketch.ino'
-				exec(cmd , {cwd: path.join(__dirname,'/compilation/arduino')} , (error, stdout, stderr) => {
+				exec(cmd , {cwd: homedir+'/.otto/arduino/'} , (error, stdout, stderr) => {
 
 			if (error) {
 					messageDiv.style.color = '#ff0000'
-					messageDiv.innerHTML = "error" + quitDiv
+					messageDiv.innerHTML = "error: "+err.toString() + quitDiv
 					console.log(error);
 					return
 				}
@@ -385,11 +464,11 @@ window.addEventListener('load', function load(event) {
 
 		    //exec( cmd, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){	
 			//exec('flash.bat ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
-				exec(cmd , {cwd: path.join(__dirname,'/compilation/arduino')} , (error, stdout, stderr) => {
+				exec(cmd , {cwd: homedir+'/.otto/arduino/'} , (error, stdout, stderr) => {
 
 				if (error) {
 					messageDiv.style.color = '#ff0000'
-					messageDiv.innerHTML = "error" + quitDiv
+					messageDiv.innerHTML = "error "+error.toString() + quitDiv
 					console.log(error);
 					return
 				}
@@ -398,6 +477,7 @@ window.addEventListener('load', function load(event) {
 			})
 		}
 		localStorage.setItem("verif",false)
+	}
 	})
 	$('#btn_saveino').on('click', function(){
 		if (localStorage.getItem("prog") == "python") { ipcRenderer.send('save-py') } else { ipcRenderer.send('save-ino') }

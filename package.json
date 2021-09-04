@@ -96,37 +96,38 @@
    "role": "Editor",
    "icon": "build/file.ico"
   },
-
   "extraFiles": [
-    {
-     "from": "./config.json",
-     "to": "resources/"
-    },
-    {
-     "from": "compilation",
-     "to": "resources/app/compilation",
-     "filter": [
-      "**/*"
-     ]
-    },{
+   {
+    "from": "./config.json",
+    "to": "resources/"
+   },
+   {
+    "from": "compilation",
+    "to": "resources/app/compilation",
+    "filter": [
+     "**/*"
+    ]
+   },
+   {
     "from": "www",
     "to": "resources/app/www",
     "filter": [
      "**/*"
     ]
    },
-   {     "from": "driversUSB",
+   {
+    "from": "driversUSB",
     "to": "resources/app/driversUSB",
     "filter": [
      "**/*"
     ]
    },
-    "README.md",
-    "LICENSE.md",
-    "config.json",
-    "version",
-    "LICENSE"
-   ],
+   "README.md",
+   "LICENSE.md",
+   "config.json",
+   "version",
+   "LICENSE"
+  ],
   "extraResources": [
    "dev-app-update.yml",
    "app-update.yml"
