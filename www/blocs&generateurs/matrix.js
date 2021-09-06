@@ -212,7 +212,8 @@ Blockly.Arduino['otto9_matrix_init'] = function(block) {
   var pin_dat = this.getFieldValue('PIN_DIN');
 
   var Orientation = this.getFieldValue('Orientation'); 
-  Blockly.Arduino.includes_['otto9_lib'] = '#include <Otto.h>\n'
+  
+  Blockly.Arduino.includes_['otto_lib'] = '#include <Otto.h>\n'
 	+ 'Otto Otto;';
   Blockly.Arduino.variables_['otto9_matrix'] = 'const char data[] = "VARIABLE#";\n'
   + 'unsigned long int matrix;';
