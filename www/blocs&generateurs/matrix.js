@@ -200,7 +200,7 @@ this.appendDummyInput() .appendField(new Blockly.FieldImage('media/matrix.png',3
 this.appendDummyInput()	.appendField("CLK").appendField(new Blockly.FieldDropdown(profile[card].dropdownAllPins), "PIN_CLK");
 this.appendDummyInput()	.appendField("CS").appendField(new Blockly.FieldDropdown(profile[card].dropdownAllPins), "PIN_CS");
 this.appendDummyInput()	.appendField("DIN").appendField(new Blockly.FieldDropdown(profile[card].dropdownAllPins), "PIN_DIN");
-this.appendDummyInput()	.appendField(Blockly.Msg.ST7735_Rotate).appendField(new Blockly.FieldDropdown([["0°", "0"], ["90°", "1"], ["180°", "2"], ["270°", "3"]]), "Orientation")
+this.appendDummyInput()	.appendField(Blockly.Msg.ST7735_Rotate).appendField(new Blockly.FieldDropdown([["0°", "1"], ["90°", "4"], ["180°", "2"], ["270°", "3"]]), "Orientation")
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
